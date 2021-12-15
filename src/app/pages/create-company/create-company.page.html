@@ -1,0 +1,56 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-button (click)="backButton()">
+				<ion-icon name="chevron-back-outline" class="return">
+				</ion-icon>
+				<ion-label>Back</ion-label>
+			</ion-button>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<ion-list>
+		<ion-list-header>
+			<ion-label>Create a company</ion-label>
+		</ion-list-header>
+
+		<ion-item>
+			<ion-label position="floating">Company Name</ion-label>
+			<ion-input type="text" id="cn" #cn class="required"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label position="floating">Company Email</ion-label>
+			<ion-input type="email" id="ce" #ce class="required"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label position="floating">Phone Number</ion-label>
+			<ion-input type="tel" id="phone" #phone class="required" maxlength="10"></ion-input>
+		</ion-item>
+
+		<ion-list-header>
+			<ion-label><h3>Contact Person</h3></ion-label>
+		</ion-list-header>
+		<!-- address -->
+		<ion-item>
+			<ion-label position="floating">First name</ion-label>
+			<ion-input type="text" id="fn"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label position="floating">Last name</ion-label>
+			<ion-input type="text" id="ln"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label position="floating">Phone number</ion-label>
+			<ion-input type="tel" id="pn1" maxlength="10"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label position="floating">Email</ion-label>
+			<ion-input type="email" id="email"></ion-input>
+		</ion-item>
+	</ion-list>
+
+	<ion-button expand="block" color="secondary" (click)="create()" size="small">Create</ion-button>
+	
+</ion-content>
