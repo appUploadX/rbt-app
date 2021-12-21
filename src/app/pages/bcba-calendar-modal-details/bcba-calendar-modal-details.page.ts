@@ -3,6 +3,7 @@ import { PostProviderService } from '../../providers/post-provider.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastController, MenuController, ModalController, ActionSheetController, AlertController, Platform  } from '@ionic/angular';
 import { SupervisorlogPage } from '../supervisorlog/supervisorlog.page';
+declare var $:any;
 
 @Component({
 	selector: 'app-bcba-calendar-modal-details',
@@ -33,6 +34,83 @@ export class BcbaCalendarModalDetailsPage implements OnInit {
 		this.thisDay = explode[0]+' '+this.day+', '+explode[1];
 
 		this.getData(this.time);
+
+		$('body').on('click', '#reject', function(){
+			presentAlert($(this).attr('class'));
+		});
+
+		var codesched = this.codesched;
+		var time = this.time;
+		var yrmonth = this.yrmonth;
+		var day = this.day;
+
+		async function presentAlert(x) {
+			var code = x.split(' ');
+			const alert = document.createElement('ion-alert');
+			alert.subHeader = 'Attention!!!';
+			alert.message = 'Please indicate below why this schedule is rejected:';
+			alert.inputs = [
+				{
+					name: 'note',
+					placeholder: 'Note',
+				}
+			],
+			alert.buttons = [
+				{
+					text: 'Reject',
+					cssClass: 'secondary',
+					handler: (data) => {
+						console.log(cancel(data['note'], code[0]))
+						cancel(data['note'], code[0])
+					}
+				}
+			]
+		  
+			document.body.appendChild(alert);
+			await alert.present();
+		}
+
+		function cancel(msg, code){
+			var link1 = localStorage.getItem("HOMELINK");
+			var link = link1.slice(0, -1)+'CancelSched/';
+			console.log(link)
+			$.ajax({
+				url: link,
+				type: 'POST',
+				dataType: 'json',
+				data: {action: 'cancel', datacode: code, note: msg},
+				success: function(data){
+					console.log(data)
+					if(data.stat == 'ok')
+					{
+						jsopenToasts('The schedule is rejected!');
+						$("#getDataSched").click();
+					}
+					else
+					{
+						jsopenToaste('Error occured!');
+					}
+				}
+			});
+		}
+
+		async function jsopenToasts(msg) {
+			const toast = document.createElement('ion-toast');
+			toast.message = '<center>'+msg+'</center>';
+			toast.duration = 2000;
+			toast.color = 'success';
+			document.body.appendChild(toast);
+			return toast.present();
+		}
+
+		async function jsopenToaste(msg) {
+			const toast = document.createElement('ion-toast');
+			toast.message = '<center>'+msg+'</center>';
+			toast.duration = 2000;
+			toast.color = 'danger';
+			document.body.appendChild(toast);
+			return toast.present();
+		}
 	}
 
 	backButton(){
@@ -60,6 +138,7 @@ export class BcbaCalendarModalDetailsPage implements OnInit {
 				this.postPvd.postData(body, localStorage.getItem('HOMELINK')).subscribe(data => {
 					if(data['status'] == 'ok') {
 						this.arrData = data['details'];
+						console.log(data['details'])
 						// console.log(data['details']);
 					}
 					else {
@@ -168,5 +247,4 @@ export class BcbaCalendarModalDetailsPage implements OnInit {
 		});
 		return await modal.present();
 	}
-
 }

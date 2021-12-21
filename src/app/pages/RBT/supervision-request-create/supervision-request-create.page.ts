@@ -11,9 +11,9 @@ declare var $: any;
 })
 export class SupervisionRequestCreatePage implements OnInit {
 	@Input() code: any;
-	@Input() time: any;
 	@Input() thisDay: any;
 	@Input() companyname: any;
+	@Input() arrays: any;
 
 	note: any;
 	ptname: string;
@@ -28,7 +28,7 @@ export class SupervisionRequestCreatePage implements OnInit {
 	) { }
 
 	ngOnInit() {
-		console.log(this.time)
+		console.log(this.arrays[0])
 	}
 
 	async openToaste(msg: string) {
@@ -67,41 +67,47 @@ export class SupervisionRequestCreatePage implements OnInit {
 		else{
 			this.ptname = 'APP';
 		}
-		
-		return new Promise(resolve => {
-			let body = {
-				action: 'rbtsupervisioncreate',
-				ucode: localStorage.getItem("UCODE"),
-				date: this.thisDay,
-				code: this.code,
-				time: this.time,
-				note: this.note,
-				plt: this.ptname,
-			};
-
-			this.postPvd.postData(body, localStorage.getItem('HOMELINK')).subscribe(data => {
-				if(data['stat'] == 'ok')
-				{
-					console.log(data)
-					this.openToasts('Waiting for BCBA Approval!');
-					setTimeout(function(){
-						$('#back').click();
-					}, 3000);
-				}
-				else if(data['stat'] == 'exist')
-				{
-					this.openToaste('Sorry the chosen time and date is not available!');
-				}
-				else if(data['stat'] == '10')
-				{
-					this.openToaste('Sorry the chosen time and date is full!');
-				}
-				else if(data['stat'] == 'not')
-				{
-					this.openToaste('Sorry you already have a schedule on this time and day.');
-				}
-			})
+		var arrck = [];
+		var ckcount = 0;
+		$('.ckboxes').each(function(){
+			if($(this).is(':checked'))
+			{
+				arrck.push($(this).val());
+				ckcount++;
+			}
 		});
+		console.log(arrck)
+		if(ckcount > 0)
+		{
+			return new Promise(resolve => {
+				let body = {
+					action: 'rbtsupervisioncreate',
+					ucode: localStorage.getItem("UCODE"),
+					date: this.thisDay,
+					code: this.code,
+					// time: this.time,
+					time: arrck,
+					note: this.note,
+					plt: this.ptname,
+				};
+	
+				this.postPvd.postData(body, localStorage.getItem('HOMELINK')).subscribe(data => {
+					console.log(data)
+					if(data['stat'] == 'ok')
+					{
+						console.log(data)
+						this.openToasts('Waiting for BCBA Approval!');
+						setTimeout(function(){
+							$('#back').click();
+						}, 3000);
+					}
+				})
+			});
+		}
+		else 
+		{
+			this.openToaste("You need to select a time to proceed request!");
+		}
 	}
 
 }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PostProviderService } from '../../providers/post-provider.service';
 import { AppComponent } from 'src/app/app.component';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ToastController, MenuController } from '@ionic/angular';
+import { ToastController, MenuController, AlertController } from '@ionic/angular';
 declare var $: any;
 
 @Component({
@@ -35,12 +35,16 @@ export class ProfilePage implements OnInit {
 	comlng: number;
 	supervisors: any;
 	suplng: number;
+	certdate: any;
+	recertdate: any;
+	stype: string;
 
 	constructor(
 		private router: Router,
 		private postPvd: PostProviderService,
 		private toastController: ToastController,
 		private menuCtrl: MenuController,
+		private alertController: AlertController,
 		private someComponent: AppComponent,
 	) { }
 
@@ -49,6 +53,15 @@ export class ProfilePage implements OnInit {
 
 	ionViewDidEnter(): void {
 		this.menuCtrl.enable(true);
+		if(localStorage.getItem("UTYPE") == 'Supervisors')
+		{
+			this.stype = localStorage.getItem("SUB");
+		}
+		else
+		{
+			this.stype = 'RBT';
+		}
+		
 	}
 
 	ionViewWillEnter(): void {
@@ -58,6 +71,7 @@ export class ProfilePage implements OnInit {
 		this.fetchSupervisors();
 
 		this.someComponent.theFunction();
+		this.checkData();
 	}
 
 	fetchDetails(){
@@ -79,6 +93,8 @@ export class ProfilePage implements OnInit {
 					this.zipcode = data['zipcode'];
 					this.supid = data['supid'];
 					this.cert = data['cert'];
+					this.certdate = data['certdate'];
+					this.recertdate = data['recertdate'];
 					this.quali = data['quali'];
 					this.dquali = data['dquali'];
 					this.dsuper = data['dsuper'];
@@ -105,6 +121,10 @@ export class ProfilePage implements OnInit {
 					// this.openToasts('<center>Success!</center>');
 					this.companies = data['companies'];
 					this.comlng = this.companies.length;
+					if(data['count'] == 8)
+					{
+						$('#btncompany').hide();
+					}
 				}
 				else {
 					this.openToaste('<center>Error Occured!</center>');
@@ -177,5 +197,71 @@ export class ProfilePage implements OnInit {
 			this.fetchSupervisors();
 			event.target.complete();
 		}, 2000);
+	}
+
+	checkData(){
+		if(localStorage.getItem("UTYPE") == 'RBT')
+		{
+			return new Promise(resolve => {
+				let body = {
+					action: 'rbtValidation',
+					ucode: localStorage.getItem("UCODE"),
+				};
+	
+				this.postPvd.postData(body, localStorage.getItem("HOMELINK")).subscribe(data => {
+					if (data['status'] == "ok") {
+						this.presentAlertConfirm(data['msg'], data['module'], data['work']);
+					}
+				})
+			});
+		}
+	}
+
+
+	async presentAlertConfirm(msg, module, work) {
+		const alert = await this.alertController.create({
+			header: 'Attention!',
+			backdropDismiss: false,
+			message: '<p style="text-align: justify;">'+msg+'</p>',
+			cssClass: 'foo',
+			buttons: [
+				{
+					text: 'Go',
+					handler: () => {
+
+						if(module == 'Company')
+						{
+							this.createCompany();
+						}
+
+						if(module == 'Supervisor')
+						{
+							this.createVisor();
+						}
+
+						if(module == 'Worksched')
+						{
+							this.router.navigate(['/work-schedule-create']);
+						}
+						// window.location.href = "https://play.app.goo.gl/?link=https://https://play.google.com/store/apps/details?id=com.agsi.AzureConnect";
+						// if(plt == 'android')
+						// {
+						// 	window.open("https://play.google.com/store/apps/details?id=com.agsi.RBTComplianceTracker", "_system");
+						// 	navigator['app'].exitApp();
+						// }
+						// else
+						// {
+						// 	window.open("https://apps.apple.com/ph/app/azure-connect/id1490206148", "_system");
+						// 	navigator['app'].exitApp();
+						// }
+						
+						// console.log('Confirm Okay');
+						// document.location.href = 'index.html';
+					}
+				}
+			]
+		});
+
+		await alert.present();
 	}
 }

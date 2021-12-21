@@ -52,3 +52,7 @@
     height: initial !important;
     contain: initial !important;
 }
+
+.foo .alert-message {
+    text-align: justify;
+}

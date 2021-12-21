@@ -62,55 +62,57 @@ export class SupervisionRequestDetailsPage implements OnInit {
 			$('#tblData').hide();
 		}
 	}
-	async presentActionSheet(i) {
-		console.log(this.arr[i][2]);
-		var btn = [];
-		for(var x = 0; x < this.arr[i][2].length; x++)
-		{
-			var code = this.arr[i][2][x][2];
-			var time = this.arr[i][2][x][1];
-			var companyname = this.arr[i][2][x][3];
-			if(this.arr[i][2][x][0] == 'label')
-			{
-				btn.push({
-					text: this.arr[i][2][x][1],
-					cssClass: 'actionSheet',
-					handler: () => {
-					}
-				});
-			}
-			else
-			{
-				btn.push({
-					text: this.arr[i][2][x][1],
-					cssClass: 'actionSheet',
-					handler: 
-						this.openModal.bind(this, code, this.arr[i][2][x][1], this.thisDay, companyname),
-					// }
-				});
-			}
+	// async presentActionSheet(i) {
+	// 	console.log(this.arr[i][2]);
+	// 	var btn = [];
+	// 	for(var x = 0; x < this.arr[i][2].length; x++)
+	// 	{
+	// 		var code = this.arr[i][2][x][2];
+	// 		var time = this.arr[i][2][x][1];
+	// 		var companyname = this.arr[i][2][x][3];
+	// 		if(this.arr[i][2][x][0] == 'label')
+	// 		{
+	// 			btn.push({
+	// 				text: this.arr[i][2][x][1],
+	// 				cssClass: 'actionSheet',
+	// 				handler: () => {
+	// 				}
+	// 			});
+	// 		}
+	// 		else
+	// 		{
+	// 			btn.push({
+	// 				text: this.arr[i][2][x][1],
+	// 				cssClass: 'actionSheet',
+	// 				handler: 
+	// 					this.openModal.bind(this, code, this.arr[i][2][x][1], this.thisDay, companyname),
+	// 				// }
+	// 			});
+	// 		}
 			
-		}
+	// 	}
 
-		const actionSheet = await this.actionSheetController.create({
-			header: 'Availability',
-			cssClass: 'match-item-action-sheet',
-			buttons: btn,
-		});
-		await actionSheet.present();
+	// 	const actionSheet = await this.actionSheetController.create({
+	// 		header: 'Availability',
+	// 		cssClass: 'match-item-action-sheet',
+	// 		buttons: btn,
+	// 	});
+	// 	await actionSheet.present();
 
-		const { role } = await actionSheet.onDidDismiss();
-	}
+	// 	const { role } = await actionSheet.onDidDismiss();
+	// }
 
-	async openModal(code, time, thisDay, companyname){
+	async openModal(code, thisDay, i){
 		// console.log(time+'gago')
+
+		// console.log(time, companyname)
 		const modal = await this.modalController.create({
 			component: SupervisionRequestCreatePage,
 			componentProps: {
 				code: code,
-				time: time,
 				thisDay: thisDay,
-				companyname: companyname,
+				companyname: this.arr[i][0],
+				arrays: this.arr[i][2],
 			}
 		});
 			

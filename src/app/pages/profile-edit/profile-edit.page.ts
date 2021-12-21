@@ -12,6 +12,8 @@ declare var $: any;
 })
 export class ProfileEditPage implements OnInit {
 	type: string;
+	maxyr: number;
+	stype: string;
 	constructor(
 		private router: Router,
 		private postPvd: PostProviderService,
@@ -22,6 +24,15 @@ export class ProfileEditPage implements OnInit {
 
 	ngOnInit() {
 		this.type = localStorage.getItem("UTYPE");
+		this.maxyr = new Date().getFullYear()+5;
+		if(localStorage.getItem("UTYPE") == 'Supervisors')
+		{
+			this.stype = localStorage.getItem("SUB");
+		}
+		else
+		{
+			this.stype = 'RBT';
+		}
 		this.fetchDetails();
 	}
 
@@ -46,6 +57,8 @@ export class ProfileEditPage implements OnInit {
 					$('#zip').val(data['zipcode']);
 					$('#supid').val(data['supid']);
 					$('#cert').val(data['cert']);
+					$('#certdate').val(data['certdate']);
+					$('#recertdate').val(data['recertdate']);
 					$('#quali').val(data['quali']);
 					$('#dquali').val(data['dquali']);
 					$('#dsuper').val(data['dsuper']);
@@ -96,6 +109,8 @@ export class ProfileEditPage implements OnInit {
 				zipcode: $('#zip').val(),
 				supid: $('#supid').val(),
 				cert: $('#cert').val(),
+				certdate: $('#certdate').val(),
+				recertdate: $('#recertdate').val(),
 				quali: $('#quali').val(),
 				dquali: $('#dquali').val(),
 				dsuper: $('#dsuper').val(),

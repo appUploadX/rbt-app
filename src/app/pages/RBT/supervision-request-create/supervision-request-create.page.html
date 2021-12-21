@@ -26,7 +26,17 @@
 
     <ion-row>
 			<ion-col class="head" size="4">Time:</ion-col>
-			<ion-col class="head" size="8">{{time}}</ion-col>
+			<ion-col class="head" size="8">
+				<!-- {{time}} -->
+				<div *ngFor="let x of arrays; index as i">
+					<label *ngIf="arrays[i][0] != 'label'; else label"><input type="checkbox" class="ckboxes" style="width: 24px;height: 20px;" value="{{arrays[i][1]}}">{{arrays[i][1]}}</label>
+
+					<ng-template #label>
+						<label>{{arrays[i][1]}}</label>
+					</ng-template>
+				</div>
+				
+			</ion-col>
 		</ion-row>
 
     <ion-row>

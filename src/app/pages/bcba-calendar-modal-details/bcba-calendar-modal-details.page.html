@@ -38,6 +38,7 @@
 		
 		<ion-row *ngFor="let arr of arrData; index as i">
 			<ion-col class="header-r1" size="12" *ngIf="time != 'x'; else notime" >
+				<button id="getDataSched" (click)="getData('')"></button>
 				<ion-item>
 					<p>
 						<strong>{{arrData[i][2]}}</strong> wants you to supervise
@@ -57,8 +58,10 @@
 								<ion-select-option *ngFor="let x of arrData[i][1]" value="{{x}}">{{x}}</ion-select-option>
 							</ion-select>
 						</ion-item>
-						<ion-button button color="secondary" expand="block" type="submit">Approve</ion-button>
+						<ion-button button color="secondary" size="small" type="submit" expand="block">Approve</ion-button>
 					</form>
+					
+					<ion-button button color="danger" size="small" expand="block" id="reject" class="{{arrData[i][0]}}">Reject</ion-button>
 				</ng-container>
 
 				<ng-template #thiselse>

@@ -23,6 +23,7 @@ export class LoginPage implements OnInit {
 	}
 
 	ionViewDidEnter(): void {
+		// localStorage.clear();
 		this.menuCtrl.enable(false);
 		console.log(localStorage.getItem("UTYPE"));
 		
@@ -72,6 +73,7 @@ export class LoginPage implements OnInit {
 						console.log(data['data']);
 						localStorage.setItem("UCODE", data['data']['userCode']);
 						localStorage.setItem("UTYPE", data['data']['categoryName']);
+						localStorage.setItem("SUB", data['sub']);
 						localStorage.setItem("ROLECODE", data['data']['roleCategoryCode']);
 						localStorage.setItem("NAME", data['data']['name']);
 						this.router.navigate(['/profile']);

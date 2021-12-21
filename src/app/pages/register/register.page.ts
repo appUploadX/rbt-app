@@ -23,6 +23,16 @@ export class RegisterPage implements OnInit {
   ) { }
 
   ngOnInit() {
+	  $('#role').on('change', function(){
+		if($(this).val() == 'Supervisor')
+		{
+			$('#subtype').show();
+		}
+		else
+		{
+			$('#subtype').hide();
+		}
+	  });
   }
 
   ionViewWillEnter() {
@@ -50,6 +60,15 @@ export class RegisterPage implements OnInit {
 			// console.log('x');
 		});
 
+		if($('#role').val() == 'Supervisor')
+		{
+			if($('#subtype').val() == 'Role subtype')
+			{
+				count++;
+				ths.push($("#subtype"));
+			}
+		}
+
 		console.log(count)
 		if(count == 0)
 		{
@@ -68,6 +87,7 @@ export class RegisterPage implements OnInit {
 					action: 'Register',
 					code: $('#role').find(':selected').attr('data-code'),
 					ctype: $('#role').val(),
+					subtype: $('#subtype').val(),
 					fn: fn,
 					ln: ln,
 					email: email,

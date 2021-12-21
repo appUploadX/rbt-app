@@ -30,16 +30,17 @@
 
 		<ion-row>
 			<ion-col class="heading" size="4">Company Name</ion-col>
-			<ion-col class="heading" size="5">Time</ion-col>
-			<ion-col class="heading" size="3">Availability</ion-col>
+			<ion-col class="heading" size="4.5">Time</ion-col>
+			<ion-col class="heading" size="3.5">Availability</ion-col>
 		</ion-row>
 		
 		<ion-grid class="gridstyle" *ngFor="let x of arr; index as i">
 			<ion-row>
 				<ion-col class="bodies" size="4">{{arr[i][0]}}</ion-col>
-				<ion-col class="bodies" size="5">{{arr[i][1]}}</ion-col>
-				<ion-col class="bodies" size="3">
-						<ion-button (click)="presentActionSheet(i);" color="primary" size="small">Open</ion-button>
+				<ion-col class="bodies" size="4.5">{{arr[i][1]}}</ion-col>
+				<ion-col class="bodies" size="3.5">
+						<!-- <ion-button (click)="presentActionSheet(i);" color="primary" size="small">Open</ion-button> -->
+						<ion-button (click)="openModal(arr[i][3], thisDay, i);" color="primary" size="small">Open</ion-button>
 				</ion-col>
 			</ion-row>
 		</ion-grid>
