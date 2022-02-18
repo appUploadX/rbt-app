@@ -66,13 +66,13 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     }
   ];
   module.exports.metadata = {
+    "cordova-plugin-androidx-adapter": "1.1.3",
     "cordova-plugin-app-version": "0.1.12",
     "cordova-plugin-device": "2.0.2",
     "cordova-plugin-ionic-keyboard": "2.2.0",
     "cordova-plugin-ionic-webview": "4.2.1",
     "cordova-plugin-network-information": "3.0.0",
     "cordova-plugin-splashscreen": "5.0.2",
-    "cordova-plugin-statusbar": "2.4.2",
-    "cordova-plugin-androidx-adapter": "1.1.3"
+    "cordova-plugin-statusbar": "2.4.2"
   };
 });

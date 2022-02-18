@@ -71,6 +71,7 @@ export class BcbaCalendarModalDetailsPage implements OnInit {
 		}
 
 		function cancel(msg, code){
+			console.log(msg)
 			var link1 = localStorage.getItem("HOMELINK");
 			var link = link1.slice(0, -1)+'CancelSched/';
 			console.log(link)
@@ -195,33 +196,72 @@ export class BcbaCalendarModalDetailsPage implements OnInit {
 		}, 2000);
 	}
 
-	logForm(val, code)
+	approve(val, code)
 	{
-		if(val != '')
+		if(val)
 		{
-			return new Promise(resolve => {
-				let body = {
-					action: 'approveSched',
-					datacode: code,
-					type: val,
-				};
+			// return new Promise(resolve => {
+			// 	let body = {
+			// 		action: 'approveSched',
+			// 		datacode: code,
+			// 		type: val,
+			// 	};
 				
-				// console.log(this.time)
-				this.postPvd.postData(body, localStorage.getItem('HOMELINK')).subscribe(data => {
-					if(data['status'] == 'ok') {
-						this.openToasts('The schedule is approve!');
-						setTimeout(() => {
-							this.getData('');
-						}, 2000);
+			// 	// console.log(this.time)
+			// 	this.postPvd.postData(body, localStorage.getItem('HOMELINK')).subscribe(data => {
+			// 		if(data['status'] == 'ok') {
+			// 			this.openToasts('The schedule is approve!');
+			// 			setTimeout(() => {
+			// 				this.getData('');
+			// 			}, 2000);
+			// 		}
+			// 		else {
+			// 			this.openToaste('Error occured!');
+			// 		}
+			// 	})
+			// });
+			
+			var link1 = localStorage.getItem("HOMELINK");
+			var link = link1.slice(0, -1)+'WithEmails/ApproveSched';
+			$.ajax({
+				url: link,
+				type: 'POST',
+				dataType: 'json',
+				data: {datacode: code, type: val},
+				success: function(data){
+					console.log(data)
+					if(data.status == 'ok')
+					{
+						jsopenToasts('The schedule is approved!');
+						$("#getDataSched").click();
 					}
-					else {
-						this.openToaste('Error occured!');
+					else
+					{
+						jsopenToaste('Error occured!');
 					}
-				})
+				}
 			});
 		}
 		else {
-			this.openToaste("Please select a sched type!");
+			jsopenToaste("Please select a sched type!");
+		}
+
+		async function jsopenToasts(msg) {
+			const toast = document.createElement('ion-toast');
+			toast.message = '<center>'+msg+'</center>';
+			toast.duration = 2000;
+			toast.color = 'success';
+			document.body.appendChild(toast);
+			return toast.present();
+		}
+
+		async function jsopenToaste(msg) {
+			const toast = document.createElement('ion-toast');
+			toast.message = '<center>'+msg+'</center>';
+			toast.duration = 2000;
+			toast.color = 'danger';
+			document.body.appendChild(toast);
+			return toast.present();
 		}
 	}
 

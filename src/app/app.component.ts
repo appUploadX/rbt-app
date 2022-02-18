@@ -26,7 +26,7 @@ export class AppComponent {
 				{ title: 'Create Work Schedule', url: '/work-schedule-create', icon: 'calendar-outline', children: [], open: false}
 			]
 		},
-		{ title: 'Task tracker', url: '/task-tracker', icon: 'list-outline', children: [], open: false},
+		// { title: 'Task tracker', url: '/task-tracker', icon: 'list-outline', children: [], open: false},
 		{ title: 'RBT Supervision Request', url: '/supervision-request', icon: 'calendar-outline', children: [], open: false},
 	]
 
@@ -53,6 +53,7 @@ export class AppComponent {
 	}
 
 	AppVer: String;
+	AppPackageName: String;
 	initializeApp() {
 		this.platform.ready().then(() => {
 			// this.statusBar.styleDefault();
@@ -118,7 +119,8 @@ export class AppComponent {
 						// window.location.href = "https://play.app.goo.gl/?link=https://https://play.google.com/store/apps/details?id=com.agsi.AzureConnect";
 						if(plt == 'android')
 						{
-							window.open("https://play.google.com/store/apps/details?id=com.agsi.RBTComplianceTracker", "_system");
+							var linkandroid = "https://play.google.com/store/apps/details?id="+this.appVersion.getPackageName();
+							window.open(linkandroid, "_system");
 							navigator['app'].exitApp();
 						}
 						else

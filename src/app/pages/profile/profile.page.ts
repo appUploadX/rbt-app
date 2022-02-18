@@ -200,8 +200,10 @@ export class ProfilePage implements OnInit {
 	}
 
 	checkData(){
+		// console.log(localStorage.getItem("UCODE"), localStorage.getItem("UTYPE"));
 		if(localStorage.getItem("UTYPE") == 'RBT')
 		{
+			
 			return new Promise(resolve => {
 				let body = {
 					action: 'rbtValidation',

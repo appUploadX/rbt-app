@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PostProviderService } from '../../providers/post-provider.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastController, MenuController } from '@ionic/angular';
+import { AppVersion } from '@ionic-native/app-version/ngx';
 declare var $: any;
 
 @Component({
@@ -12,18 +13,22 @@ declare var $: any;
 export class LoginPage implements OnInit {
 
 	constructor(
+		private appVersion: AppVersion,
 		private router: Router,
 		private postPvd: PostProviderService,
 		private toastController: ToastController,
 		private menuCtrl: MenuController,
 	) { }
-
+	
+	AppVer: String;
 	ngOnInit() {
+		
 		localStorage.setItem("HOMELINK", 'https://www.asi-ph.com/sandboxes/RBTComplianceTracker/RBTApp/');
 	}
 
 	ionViewDidEnter(): void {
 		// localStorage.clear();
+		
 		this.menuCtrl.enable(false);
 		console.log(localStorage.getItem("UTYPE"));
 		
@@ -62,9 +67,13 @@ export class LoginPage implements OnInit {
 		if (count == 0) {
 			return new Promise(resolve => {
 				let body = {
-					action: 'Login',
+					action: 'NewLogin',
 					user: user,
 					pass: pass,
+					// rbt
+					// type: 'c75bd20cfe2ae235f95f4171455547d921a4b3e2',
+					// super
+					type: '0f90840f722482888e9da6d7363e28741c24a12f',
 				};
 
 				this.postPvd.postData(body, localStorage.getItem("HOMELINK")).subscribe(data => {

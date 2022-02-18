@@ -79,9 +79,39 @@ export class SupervisionRequestCreatePage implements OnInit {
 		console.log(arrck)
 		if(ckcount > 0)
 		{
-			return new Promise(resolve => {
-				let body = {
-					action: 'rbtsupervisioncreate',
+			// return new Promise(resolve => {
+			// 	let body = {
+			// 		action: 'rbtsupervisioncreate',
+			// 		ucode: localStorage.getItem("UCODE"),
+			// 		date: this.thisDay,
+			// 		code: this.code,
+			// 		// time: this.time,
+			// 		time: arrck,
+			// 		note: this.note,
+			// 		plt: this.ptname,
+			// 	};
+	
+			// 	this.postPvd.postData(body, localStorage.getItem('HOMELINK')).subscribe(data => {
+			// 		console.log(data)
+			// 		if(data['stat'] == 'ok')
+			// 		{
+			// 			console.log(data)
+			// 			this.openToasts('Waiting for BCBA Approval!');
+			// 			setTimeout(function(){
+			// 				$('#back').click();
+			// 			}, 3000);
+			// 		}
+			// 	})
+			// });
+			var link1 = localStorage.getItem("HOMELINK");
+			var link = link1.slice(0, -1)+'WithEmails/createSupervisionRequest';
+
+			$.ajax({
+				url: link,
+				type: 'POST',
+				dataType: 'json',
+				data: {
+					action: 'save',
 					ucode: localStorage.getItem("UCODE"),
 					date: this.thisDay,
 					code: this.code,
@@ -89,24 +119,43 @@ export class SupervisionRequestCreatePage implements OnInit {
 					time: arrck,
 					note: this.note,
 					plt: this.ptname,
-				};
-	
-				this.postPvd.postData(body, localStorage.getItem('HOMELINK')).subscribe(data => {
-					console.log(data)
-					if(data['stat'] == 'ok')
-					{
-						console.log(data)
-						this.openToasts('Waiting for BCBA Approval!');
+				},
+				success: function(data)
+				{
+					if (data['stat'] == "ok") {
+						jsopenToasts('Waiting for BCBA Approval!');
 						setTimeout(function(){
 							$('#back').click();
 						}, 3000);
 					}
-				})
+					else
+					{
+						jsopenToaste('Error occured!');
+					}
+				}
 			});
 		}
 		else 
 		{
 			this.openToaste("You need to select a time to proceed request!");
+		}
+
+		async function jsopenToasts(msg) {
+			const toast = document.createElement('ion-toast');
+			toast.message = '<center>'+msg+'</center>';
+			toast.duration = 2000;
+			toast.color = 'success';
+			document.body.appendChild(toast);
+			return toast.present();
+		}
+
+		async function jsopenToaste(msg) {
+			const toast = document.createElement('ion-toast');
+			toast.message = '<center>'+msg+'</center>';
+			toast.duration = 2000;
+			toast.color = 'danger';
+			document.body.appendChild(toast);
+			return toast.present();
 		}
 	}
 

@@ -26,6 +26,91 @@ export class CreateSupervisorsPage implements OnInit {
 	) { }
 
 	ngOnInit() {
+		if (this.plt.is('ios')) {
+			var ptname = 'ios';
+		}
+		else if(this.plt.is('android')) {
+			var ptname = 'android';
+		}
+		else{
+			var ptname = 'APP';
+		}
+
+		$('body').on('click', '#create', function(){
+			var count = 0;
+			var ths = [];
+			var thsr = [];
+			$('.required').each(function(){
+				if($(this).val() == "")
+				{
+					count++;
+					ths.push($(this).siblings('ion-label').text())
+					thsr.push($(this).attr('id'))
+				}
+			});
+
+			console.log(count)
+			if(count == 0)
+			{
+				
+				var link1 = localStorage.getItem("HOMELINK");
+				var link = link1.slice(0, -1)+'WithEmails/CreateSupervisor';
+
+				$.ajax({
+					url: link,
+					type: 'POST',
+					dataType: 'json',
+					data: {
+						action: 'save',
+						'ucode': localStorage.getItem('UCODE'),
+						'fn': $('#fn').val(),
+						'ln': $('#ln').val(),
+						'pn': $('#pn').val(),
+						'email': $('#email').val(),
+						'plt': ptname,
+					},
+					success: function(data)
+					{
+						if (data['status'] == "ok") {
+							jsopenToasts('<center>Supervisor created successfully.<center>');
+							setTimeout(function(){
+								$('ion-input').val('');
+								// $('#login').click();
+							},3000);
+						}
+						else
+						{
+							jsopenToaste('<center>Supervisor email already exist!<center>');
+						}
+					}
+				});
+			}
+			else{
+				jsopenToaste('<center>All fields(*) are required.</center>');
+				// this['thisInput'+thsr[0]].setFocus();
+				// setTimeout(function(){
+				// 	this['thisInput'+thsr[0]].removeAttr('style');
+				// },5000);
+			}
+		});
+
+		async function jsopenToasts(msg) {
+			const toast = document.createElement('ion-toast');
+			toast.message = '<center>'+msg+'</center>';
+			toast.duration = 2000;
+			toast.color = 'success';
+			document.body.appendChild(toast);
+			return toast.present();
+		}
+
+		async function jsopenToaste(msg) {
+			const toast = document.createElement('ion-toast');
+			toast.message = '<center>'+msg+'</center>';
+			toast.duration = 2000;
+			toast.color = 'danger';
+			document.body.appendChild(toast);
+			return toast.present();
+		}
 	}
 
 	ptname: string;

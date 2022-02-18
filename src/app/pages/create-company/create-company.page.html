@@ -17,15 +17,15 @@
 		</ion-list-header>
 
 		<ion-item>
-			<ion-label position="floating">Company Name</ion-label>
+			<ion-label position="floating">Company Name <span style="color: red">*</span></ion-label>
 			<ion-input type="text" id="cn" #cn class="required"></ion-input>
 		</ion-item>
 		<ion-item>
-			<ion-label position="floating">Company Email</ion-label>
+			<ion-label position="floating">Company Email <span style="color: red">*</span></ion-label>
 			<ion-input type="email" id="ce" #ce class="required"></ion-input>
 		</ion-item>
 		<ion-item>
-			<ion-label position="floating">Phone Number</ion-label>
+			<ion-label position="floating">Phone Number <span style="color: red">*</span></ion-label>
 			<ion-input type="tel" id="phone" #phone class="required" maxlength="10"></ion-input>
 		</ion-item>
 
@@ -51,6 +51,7 @@
 		</ion-item>
 	</ion-list>
 
-	<ion-button expand="block" color="secondary" (click)="create()" size="small">Create</ion-button>
+	<!-- <ion-button expand="block" color="secondary" (click)="create()" size="small">Create</ion-button> -->
+	<ion-button expand="block" color="secondary" id="create" size="small">Create</ion-button>
 	
 </ion-content>

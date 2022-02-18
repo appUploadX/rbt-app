@@ -31,9 +31,9 @@ export class SupervisionRequestPage implements OnInit {
 	) { }
 
 	ngOnInit() {
-		this.min = new Date().getFullYear().toString() + '-' + (new Date().getMonth() + 1).toString();
+		this.min = new Date().getFullYear().toString() + '-' + (new Date().getMonth() + 1).toString().padStart(2, "0");
 		this.max = (new Date().getFullYear() + 1).toString();
-
+		console.log(this.min, this.max);
 		this.getVisor();
  	}
 

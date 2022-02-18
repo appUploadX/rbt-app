@@ -148,6 +148,17 @@ export class WorkScheduleCreatePage implements OnInit {
 	}
 
 	save(){
+
+		if (this.plt.is('ios')) {
+			var ptname = 'ios';
+		}
+		else if(this.plt.is('android')) {
+			var ptname = 'android';
+		}
+		else{
+			var ptname = 'APP';
+		}
+
 		var counter = 0;
 		$('.req').each(function(){
 			if($(this).val() == '')
@@ -158,51 +169,100 @@ export class WorkScheduleCreatePage implements OnInit {
 
 		if(counter == 0)
 		{
-			if (this.plt.is('ios')) {
-				this.ptname = 'ios';
-			}
-			else if(this.plt.is('android')) {
-				this.ptname = 'android';
-			}
-			else{
-				this.ptname = 'APP';
-			}
-			
-			return new Promise(resolve => {
-				let body = {
-					action: 'rbtsaveown',
-					ucode: localStorage.getItem("UCODE"),
-					ccomp: this.company,
-					csup: this.supervisor,
-					cdates: $('#fd').val(),
-					cdatee: $('#td').val(),
-					cstime: this.st,
-					cetime: this.et,
-					cnote: $('#note').val(),
-					plt: this.ptname,
-				}
+			// return new Promise(resolve => {
+			// 	let body = {
+			// 		action: 'rbtsaveown',
+			// 		ucode: localStorage.getItem("UCODE"),
+			// 		ccomp: this.company,
+			// 		csup: this.supervisor,
+			// 		cdates: $('#fd').val(),
+			// 		cdatee: $('#td').val(),
+			// 		cstime: this.st,
+			// 		cetime: this.et,
+			// 		cnote: $('#note').val(),
+			// 		plt: this.ptname,
+			// 	}
 
-				this.postPvd.postData(body, localStorage.getItem('HOMELINK')).subscribe(data => {
-					if(data['stats'] == 'ok') {
-						this.show = false;
-						$('#save').css('display', 'none')
-						this.openToasts('Work schedule has been created!');
-						this.supervisors = [];
-						$('ion-datetime').val('');
-						$('ion-textarea').val('');
-						this.supervisor = '';
-						this.company = '';
+			// 	this.postPvd.postData(body, localStorage.getItem('HOMELINK')).subscribe(data => {
+			// 		if(data['stats'] == 'ok') {
+			// 			this.show = false;
+			// 			$('#save').css('display', 'none')
+			// 			this.openToasts('Work schedule has been created!');
+			// 			this.supervisors = [];
+			// 			$('ion-datetime').val('');
+			// 			$('ion-textarea').val('');
+			// 			this.supervisor = '';
+			// 			this.company = '';
 						
+			// 		}
+			// 		else {
+			// 			this.openToaste('Error occured!');
+			// 		}
+			// 	})
+			// });
+
+			var link1 = localStorage.getItem("HOMELINK");
+			var link = link1.slice(0, -1)+'WithEmails/createWorkSchedRBT';
+
+			$.ajax({
+				url: link,
+				type: 'POST',
+				dataType: 'json',
+				data: {
+					action: 'save',
+					'ucode': localStorage.getItem("UCODE"),
+					'ccomp': this.company,
+					'csup': this.supervisor,
+					'cdates': $('#fd').val(),
+					'cdatee': $('#td').val(),
+					'cstime': this.st,
+					'cetime': this.et,
+					'cnote': $('#note').val(),
+					'plt': ptname,
+				},
+				success: function(data)
+				{
+					if (data['status'] == "ok") {
+						jsopenToasts('Work schedule has been created.');
+						setTimeout(function(){
+							this.show = false;
+							$('#save').css('display', 'none')
+							this.openToasts('Work schedule has been created!');
+							this.supervisors = [];
+							$('ion-datetime').val('');
+							$('ion-textarea').val('');
+							this.supervisor = '';
+							this.company = '';
+						},3000);
 					}
-					else {
-						this.openToaste('Error occured!');
+					else
+					{
+						jsopenToaste('Error occured!');
 					}
-				})
+				}
 			});
 		}
 		else
 		{
 			this.openToaste("<center>All fields are required!</center>")
+		}
+
+		async function jsopenToasts(msg) {
+			const toast = document.createElement('ion-toast');
+			toast.message = '<center>'+msg+'</center>';
+			toast.duration = 2000;
+			toast.color = 'success';
+			document.body.appendChild(toast);
+			return toast.present();
+		}
+
+		async function jsopenToaste(msg) {
+			const toast = document.createElement('ion-toast');
+			toast.message = '<center>'+msg+'</center>';
+			toast.duration = 2000;
+			toast.color = 'danger';
+			document.body.appendChild(toast);
+			return toast.present();
 		}
 	}
 

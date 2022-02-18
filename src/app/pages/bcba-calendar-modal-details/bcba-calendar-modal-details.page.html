@@ -46,7 +46,7 @@
 					</p>
 				</ion-item>
 				<ng-container *ngIf="arrData[i][0] != '';else thiselse">
-					<form (ngSubmit)="logForm(sel.value, hdncode.value)">
+					<form (ngSubmit)="approve(sel.value, hdncode.value)">
 						<ion-item>
 							<ion-label>Note:</ion-label>
 							<ion-input value="{{arrData[i][5]}}" readonly></ion-input>

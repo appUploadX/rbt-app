@@ -42,6 +42,8 @@ export class SupervisorlogPage implements OnInit {
 			this.fetch();
 		}
 		
+
+		
 	}
 
 	backButton(){
@@ -171,6 +173,78 @@ export class SupervisorlogPage implements OnInit {
 
 	save()
 	{
+		// var counter = 0;
+		// var ths = [];
+		// $('.req').each(function(){
+		// 	if($(this).val() == '')
+		// 	{
+		// 		ths.push($(this));
+		// 		counter++;
+		// 	}
+		// });
+
+		// if(counter == 0)
+		// {
+		// 	if (this.plt.is('ios')) {
+		// 		this.ptname = 'ios';
+		// 	}
+		// 	else if(this.plt.is('android')) {
+		// 		this.ptname = 'android';
+		// 	}
+		// 	else{
+		// 		this.ptname = 'APP';
+		// 	}
+
+		// 	return new Promise(resolve => {
+		// 		let body = {
+		// 			action: 'savesupervisorlog',
+		// 			ucode: localStorage.getItem("UCODE"),
+		// 			ptname: this.ptname,
+		// 			workcode: this.logcode,
+		// 			type: $('#stype').val(),
+		// 			unrestricted: $('#unr').val(),
+		// 			method: $('#ms').val(),
+		// 			superstime: this.sups,
+		// 			supertimee: this.supe,
+		// 			total: $('#totalsup').html(),
+		// 			observation: $('#co').val(),
+		// 			note: $('#note').val(),
+		// 			tx: $('#hours').html(),
+		// 			total1: $('#total').html(),
+		// 		};
+	
+		// 		this.postPvd.postData(body, localStorage.getItem('HOMELINK')).subscribe(data => {
+		// 			if(data['status'] == 'ok') {
+		// 				// this.codesched = data['schedcode'];
+		// 				this.openToasts'The log has been created.');
+		// 				this.backButton();
+		// 			}
+		// 			else {
+		// 				this.openToaste('Error occured!');
+		// 			}
+		// 		})
+		// 	});
+		// }
+		// else
+		// {
+		// 	this.openToaste('This fields are required!');
+  		// 	ths[0].focus();
+  		// 	ths[0].css('border', '1px solid red');
+  		// 	setTimeout(function(){
+  		// 		ths[0].removeAttr('style');
+  		// 	},5000);
+		// }
+		if (this.plt.is('ios')) {
+			var ptname = 'ios';
+		}
+		else if(this.plt.is('android')) {
+			var ptname = 'android';
+		}
+		else{
+			var ptname = 'APP';
+		}
+
+
 		var counter = 0;
 		var ths = [];
 		$('.req').each(function(){
@@ -183,54 +257,73 @@ export class SupervisorlogPage implements OnInit {
 
 		if(counter == 0)
 		{
-			if (this.plt.is('ios')) {
-				this.ptname = 'ios';
-			}
-			else if(this.plt.is('android')) {
-				this.ptname = 'android';
-			}
-			else{
-				this.ptname = 'APP';
-			}
-
-			return new Promise(resolve => {
-				let body = {
-					action: 'savesupervisorlog',
+			var link1 = localStorage.getItem("HOMELINK");
+			var link = link1.slice(0, -1)+'WithEmails/CreateSupervisorLog';
+			var logcode = this.logcode;
+			var sups = this.sups;
+			var supe = this.supe;
+			$.ajax({
+				url: link,
+				type: 'POST',
+				dataType: 'json',
+				data: {
+					action: 'save',
 					ucode: localStorage.getItem("UCODE"),
-					ptname: this.ptname,
-					workcode: this.logcode,
+					ptname: ptname,
+					workcode: logcode,
 					type: $('#stype').val(),
 					unrestricted: $('#unr').val(),
 					method: $('#ms').val(),
-					superstime: this.sups,
-					supertimee: this.supe,
+					superstime: sups,
+					supertimee: supe,
 					total: $('#totalsup').html(),
 					observation: $('#co').val(),
 					note: $('#note').val(),
 					tx: $('#hours').html(),
 					total1: $('#total').html(),
-				};
-	
-				this.postPvd.postData(body, localStorage.getItem('HOMELINK')).subscribe(data => {
-					if(data['status'] == 'ok') {
-						// this.codesched = data['schedcode'];
-						this.openToasts('The log has been created.');
-						this.backButton();
+				},
+				success: function(data)
+				{
+					if (data['status'] == "ok") {
+						jsopenToasts('The log has been created.');
+						setTimeout(function(){
+							
+							$('#back').click();
+						},3000);
 					}
-					else {
-						this.openToaste('Error occured!');
+					else
+					{
+						jsopenToaste('Error occured!');
 					}
-				})
+				}
 			});
 		}
 		else
 		{
-			this.openToaste('This fields are required!');
+			jsopenToaste('This fields are required!');
   			ths[0].focus();
   			ths[0].css('border', '1px solid red');
   			setTimeout(function(){
   				ths[0].removeAttr('style');
   			},5000);
+		}
+
+		async function jsopenToasts(msg) {
+			const toast = document.createElement('ion-toast');
+			toast.message = '<center>'+msg+'</center>';
+			toast.duration = 2000;
+			toast.color = 'success';
+			document.body.appendChild(toast);
+			return toast.present();
+		}
+
+		async function jsopenToaste(msg) {
+			const toast = document.createElement('ion-toast');
+			toast.message = '<center>'+msg+'</center>';
+			toast.duration = 2000;
+			toast.color = 'danger';
+			document.body.appendChild(toast);
+			return toast.present();
 		}
 	}
 
