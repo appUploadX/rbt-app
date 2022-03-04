@@ -45,6 +45,7 @@ export class RegisterPage implements OnInit {
 		}
 
 		$('body').on('click', '#register', function(){
+			$(this).attr('disabled', 'true');
 			var count = 0;
 			var ths = [];
 			$('.requiredreg').each(function(){
@@ -68,7 +69,6 @@ export class RegisterPage implements OnInit {
 			console.log(count)
 			if(count == 0)
 			{
-				
 				var link1 = localStorage.getItem("HOMELINK");
 				var link = link1.slice(0, -1)+'WithEmails/Register';
 
@@ -90,10 +90,13 @@ export class RegisterPage implements OnInit {
 					success: function(data)
 					{
 						if (data['status'] == "Success") {
+							
+
 							jsopenToasts('<center>'+data['msg']+'<center>');
 							setTimeout(function(){
 								console.log('back')
 								$('input[type="text"], input[type="tel"], select').val('');
+								$('#register').removeAttr('disabled');
 								$('#login').click();
 							},3000);
 						}
@@ -105,6 +108,7 @@ export class RegisterPage implements OnInit {
 				});
 			}
 			else{
+				$('#register').removeAttr('disabled');
 				jsopenToaste('<center>All field are required.</center>');
 				ths[0].focus();
 				ths[0].css({ "border": '#FF0000 1px solid' });

@@ -18,7 +18,7 @@ export class ForgotPasswordPage implements OnInit {
 		private router: Router,
 		private toastController: ToastController,
 	) { }
-
+	
 	ngOnInit() {
 	}
 
@@ -31,28 +31,119 @@ export class ForgotPasswordPage implements OnInit {
 		var pattern = /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/;
 
 		if (pattern.test(this.email)) {
-			return new Promise(resolve => {
-				let body = {
-					action: 'verifyEmail',
-					email: this.email
-				}
+			// return new Promise(resolve => {
+			// 	let body = {
+			// 		action: 'verifyEmail',
+			// 		email: this.email
+			// 	}
 				
-				this.postPvd.postData(body, localStorage.getItem("HOMELINK")).subscribe(data =>{
+			// 	this.postPvd.postData(body, localStorage.getItem("HOMELINK")).subscribe(data =>{
+			// 		if(data['status'] == 'ok'){
+			// 			this.openToasts("<center>Email is verified. Please click 'Send code' to continue!</center>");
+			// 			$("#verifyEmail").hide();
+			// 			$(".showverify").show();
+			// 		}
+			// 		else
+			// 		{
+			// 			this.openToaste("<center>Email is not registered!</center>");
+			// 		}
+			// 	})
+	
+			// });
+			var link1 = localStorage.getItem("HOMELINK");
+			var link = link1.slice(0, -1)+'WithEmails/verifyEmail';
+			$.ajax({
+				url: link,
+				type: 'POST',
+				dataType: 'json',
+				data: {
+					action: 'save',
+					email: this.email
+				},
+				success: function(data)
+				{
+					console.log(data);
 					if(data['status'] == 'ok'){
-						this.openToasts("<center>Email is verified. Please click 'Send code' to continue!</center>");
+						jsopenToasts("<center>Email is verified. Please check the code in your email!</center>");
 						$("#verifyEmail").hide();
-						$(".showverify").show();
+						$(".showcode").show();
+						// $(".showverify").show();
 					}
 					else
 					{
-						this.openToaste("<center>Email is not registered!</center>");
+						jsopenToaste("<center>Email is not registered!</center>");
 					}
-				})
-	
+				}
 			});
 		}
 		else {
 			this.openToaste("Invalid email pattern!");
+		}
+
+		async function jsopenToasts(msg) {
+			const toast = document.createElement('ion-toast');
+			toast.message = '<center>'+msg+'</center>';
+			toast.duration = 2000;
+			toast.color = 'success';
+			document.body.appendChild(toast);
+			return toast.present();
+		}
+
+		async function jsopenToaste(msg) {
+			const toast = document.createElement('ion-toast');
+			toast.message = '<center>'+msg+'</center>';
+			toast.duration = 2000;
+			toast.color = 'danger';
+			document.body.appendChild(toast);
+			return toast.present();
+		}
+	}
+	codeCheck(){
+		var datax = $('#codex').val().split('');
+		console.log(datax.length);
+		if(datax.length == 5)
+		{
+			var link1 = localStorage.getItem("HOMELINK");
+			var link = link1.slice(0, -1)+'WithEmails/verifyCode';
+			$.ajax({
+				url: link,
+				type: 'POST',
+				dataType: 'json',
+				data: {
+					code:  $('#codex').val(),
+					email: this.email,
+				},
+				success: function(data)
+				{
+					console.log(data);
+					if(data['status'] == 'ok'){
+						$(".showcode").hide();
+						$(".showverify").show();
+					}
+					else
+					{
+						jsopenToaste("<center>Incorrect code!</center>");
+					}
+				}
+			});
+		}
+
+		async function jsopenToasts(msg) {
+			const toast = document.createElement('ion-toast');
+			toast.message = '<center>'+msg+'</center>';
+			toast.duration = 2000;
+			toast.color = 'success';
+			document.body.appendChild(toast);
+			return toast.present();
+		}
+
+		async function jsopenToaste(msg) {
+			const toast = document.createElement('ion-toast');
+			toast.message = '<center>'+msg+'</center>';
+			toast.duration = 2000;
+			toast.color = 'danger';
+			document.body.appendChild(toast);
+			return toast.present();
 		}
 	}
 

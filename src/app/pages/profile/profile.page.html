@@ -29,6 +29,7 @@
 			<div *ngIf="type == 'RBT'">
 				<ion-button size="small" color="primary" (click)="createCompany()" id="btncompany">Create Company</ion-button>
 				<ion-button size="small" color="primary" (click)="createVisor()">Create Supervisor</ion-button>
+				<ion-button size="small" color="primary" (click)="attachCompany()">Attach to a company</ion-button>
 			</div>
 		</div>
 	</ion-card>
@@ -118,8 +119,8 @@
 			<ng-template #conditionCompFalse>
 				<div *ngFor="let res of companies; let i = index">
 					<ion-item class="ion-no-padding">
-						<ion-icon name="briefcase-outline"></ion-icon>
-						<ion-label class="dts" class="ion-text-wrap">{{companies[i]}}</ion-label>
+						<ion-icon *ngIf="utype == 'RBT'" button  color="danger" (click)="presentRemove(companycodes[i])" name="remove-circle-outline" style="color: #fff;"></ion-icon>
+						<ion-label class="dts" class="ion-text-wrap"><ion-icon name="briefcase-outline"></ion-icon>{{companies[i]}}</ion-label>
 					</ion-item>
 				</div>
 			</ng-template>			

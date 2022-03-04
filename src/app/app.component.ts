@@ -80,6 +80,7 @@ export class AppComponent {
 							action: 'checkVersion',
 							currentVersion: versionNumber,
 							devPlat: devPlat,
+							packageName: this.appVersion.getPackageName(),
 						}
 
 						this.postPvd.postData(body, localStorage.getItem("HOMELINK")).subscribe(data => {

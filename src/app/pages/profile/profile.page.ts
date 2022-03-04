@@ -38,6 +38,7 @@ export class ProfilePage implements OnInit {
 	certdate: any;
 	recertdate: any;
 	stype: string;
+	companycodes: any;
 
 	constructor(
 		private router: Router,
@@ -63,8 +64,9 @@ export class ProfilePage implements OnInit {
 		}
 		
 	}
-
+	utype: string;
 	ionViewWillEnter(): void {
+		this.utype = localStorage.getItem("UTYPE");
 		this.menuCtrl.enable(true);
 		this.fetchDetails();
 		this.fetchCompany();
@@ -111,7 +113,7 @@ export class ProfilePage implements OnInit {
 	fetchCompany(){
 		return new Promise(resolve => {
 			let body = {
-				action: 'fetchCompany',
+				action: 'fetchCompanyNew',
 				ucode: localStorage.getItem("UCODE"),
 				utype: localStorage.getItem("UTYPE"),
 			};
@@ -120,6 +122,7 @@ export class ProfilePage implements OnInit {
 				if (data['status'] == "success") {
 					// this.openToasts('<center>Success!</center>');
 					this.companies = data['companies'];
+					this.companycodes = data['companycode'];
 					this.comlng = this.companies.length;
 					if(data['count'] == 8)
 					{
@@ -188,6 +191,11 @@ export class ProfilePage implements OnInit {
 	updatePass()
 	{
 		this.router.navigateByUrl('/update-password');
+	}
+
+	attachCompany()
+	{
+		this.router.navigateByUrl('/attach-company');
 	}
 
 	doRefresh(event) {
@@ -259,6 +267,49 @@ export class ProfilePage implements OnInit {
 						
 						// console.log('Confirm Okay');
 						// document.location.href = 'index.html';
+					}
+				}
+			]
+		});
+
+		await alert.present();
+	}
+
+	async presentRemove(code) 
+	{
+		console.log(code);
+		const alert = await this.alertController.create({
+			header: 'Attention!',
+			backdropDismiss: false,
+			message: '<p style="text-align: justify;">Are you sure you want to remove this company?</p>',
+			cssClass: 'foo',
+			buttons: [
+				{
+					text: 'Yes',
+					handler: () => {
+						return new Promise(resolve => {
+							let body = {
+								action: 'RBTremoveCompany',
+								ucode: localStorage.getItem("UCODE"),
+								code: code,
+							};
+				
+							this.postPvd.postData(body, localStorage.getItem("HOMELINK")).subscribe(data => {
+								if (data['status'] == "ok") {
+									this.openToasts('<center>Company has been removed!</center>');
+									this.fetchCompany();
+								}
+								else {
+									this.openToaste('<center>Error Occured!</center>');
+								}
+							})
+						});
+					}
+				},
+				{
+					text: 'No',
+					role: 'cancel',
+					handler: (blah) => {
 					}
 				}
 			]

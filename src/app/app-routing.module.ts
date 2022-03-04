@@ -93,6 +93,10 @@ const routes: Routes = [
     path: 'check-version',
     loadChildren: () => import('./pages/check-version/check-version.module').then( m => m.CheckVersionPageModule)
   },
+  {
+    path: 'attach-company',
+    loadChildren: () => import('./pages/attach-company/attach-company.module').then( m => m.AttachCompanyPageModule)
+  },
 ];
 
 @NgModule({
