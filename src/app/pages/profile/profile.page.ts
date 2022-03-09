@@ -214,7 +214,7 @@ export class ProfilePage implements OnInit {
 			
 			return new Promise(resolve => {
 				let body = {
-					action: 'rbtValidation',
+					action: 'NEWrbtValidation',
 					ucode: localStorage.getItem("UCODE"),
 				};
 	
@@ -241,7 +241,7 @@ export class ProfilePage implements OnInit {
 
 						if(module == 'Company')
 						{
-							this.createCompany();
+							this.chooseCreateCompany();
 						}
 
 						if(module == 'Supervisor')
@@ -267,6 +267,31 @@ export class ProfilePage implements OnInit {
 						
 						// console.log('Confirm Okay');
 						// document.location.href = 'index.html';
+					}
+				}
+			]
+		});
+
+		await alert.present();
+	}
+
+	async chooseCreateCompany() {
+		const alert = await this.alertController.create({
+			header: 'Attention!',
+			backdropDismiss: false,
+			message: '<p style="text-align: justify;">Please choose whether to <b>create</b> or <b>attach</b> a company </p>',
+			cssClass: 'foo',
+			buttons: [
+				{
+					text: 'Create',
+					handler: () => {
+						this.createCompany();
+					}
+				},
+				{
+					text: 'Attach',
+					handler: () => {
+						this.attachCompany();
 					}
 				}
 			]

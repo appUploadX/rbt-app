@@ -72,12 +72,23 @@ export class AttachCompanyPage implements OnInit {
 	create(){
 		if(this.companies)
 		{
+			if (this.plt.is('ios')) {
+				var ptname = 'ios';
+			}
+			else if(this.plt.is('android')) {
+				var ptname = 'android';
+			}
+			else{
+				var ptname = 'APP';
+			}
+
 			return new Promise(resolve => {
 				let body = {
 					action: 'attachCompany',
 					ucode: localStorage.getItem('UCODE'),
 					compcode: this.companies,
 					utype: localStorage.getItem('UTYPE'),
+					ptname: ptname,
 				};
 				
 				this.postPvd.postData(body, localStorage.getItem("HOMELINK")).subscribe(data => {
