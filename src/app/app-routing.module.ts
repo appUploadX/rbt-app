@@ -97,6 +97,10 @@ const routes: Routes = [
     path: 'attach-company',
     loadChildren: () => import('./pages/attach-company/attach-company.module').then( m => m.AttachCompanyPageModule)
   },
+  {
+    path: 'attach-supervisor',
+    loadChildren: () => import('./pages/attach-supervisor/attach-supervisor.module').then( m => m.AttachSupervisorPageModule)
+  },
 ];
 
 @NgModule({

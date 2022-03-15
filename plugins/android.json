@@ -8,29 +8,29 @@
   },
   "installed_plugins": {
     "cordova-plugin-androidx-adapter": {
-      "PACKAGE_NAME": "com.agsi.RBTComplianceTrackerRBT"
+      "PACKAGE_NAME": "com.agsi.RBTComplianceTrackerSupervisor"
     },
     "cordova-plugin-app-version": {
-      "PACKAGE_NAME": "com.agsi.RBTComplianceTrackerRBT"
+      "PACKAGE_NAME": "com.agsi.RBTComplianceTrackerSupervisor"
     },
     "cordova-plugin-device": {
-      "PACKAGE_NAME": "com.agsi.RBTComplianceTrackerRBT"
+      "PACKAGE_NAME": "com.agsi.RBTComplianceTrackerSupervisor"
     },
     "cordova-plugin-ionic-keyboard": {
-      "PACKAGE_NAME": "com.agsi.RBTComplianceTrackerRBT"
+      "PACKAGE_NAME": "com.agsi.RBTComplianceTrackerSupervisor"
     },
     "cordova-plugin-ionic-webview": {
       "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+",
-      "PACKAGE_NAME": "com.agsi.RBTComplianceTrackerRBT"
+      "PACKAGE_NAME": "com.agsi.RBTComplianceTrackerSupervisor"
     },
     "cordova-plugin-network-information": {
-      "PACKAGE_NAME": "com.agsi.RBTComplianceTrackerRBT"
+      "PACKAGE_NAME": "com.agsi.RBTComplianceTrackerSupervisor"
     },
     "cordova-plugin-splashscreen": {
-      "PACKAGE_NAME": "com.agsi.RBTComplianceTrackerRBT"
+      "PACKAGE_NAME": "com.agsi.RBTComplianceTrackerSupervisor"
     },
     "cordova-plugin-statusbar": {
-      "PACKAGE_NAME": "com.agsi.RBTComplianceTrackerRBT"
+      "PACKAGE_NAME": "com.agsi.RBTComplianceTrackerSupervisor"
     }
   },
   "dependent_plugins": {}

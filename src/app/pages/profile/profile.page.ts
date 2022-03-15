@@ -198,6 +198,11 @@ export class ProfilePage implements OnInit {
 		this.router.navigateByUrl('/attach-company');
 	}
 
+	attachSuper()
+	{
+		this.router.navigateByUrl('/attach-supervisor');
+	}
+
 	doRefresh(event) {
 		setTimeout(() => {
 			this.fetchDetails();

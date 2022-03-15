@@ -45,10 +45,11 @@
 
 
 		<div id="divappend" *ngIf="type == 'create'">
-			<ion-row>
+			<ion-row id="rowappend">
 				<ion-col class="datalist" size="4">
+					<ion-button button id="remove" class="btnRemove" color="danger" size="small"><ion-icon name="remove-circle-outline" style="color: #fff;"></ion-icon></ion-button> <br>
 					<!-- <ion-datetime display-format="h:mm A" picker-format="h:mm A" placeholder="00:00" [(ngModel)]="et" [ngModelOptions]="{standalone: true}" class="req" min="06:00"></ion-datetime> -->
-					<input type="time" class="time req" attr="total1">
+					<input type="time" min='00:00' max= '24:00' class="time req" attr="total1">
 				</ion-col>
 				<ion-col class="datalist" size="6">			
 					<!-- <ion-label position="stacked" class="labelclass">Service Type: </ion-label> -->

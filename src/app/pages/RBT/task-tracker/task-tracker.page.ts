@@ -201,6 +201,16 @@ export class TaskTrackerPage implements OnInit {
 				document.body.appendChild(toast);
 				return toast.present();
 			}
+
+			$('body').on('click', '#remove', function(){
+				var lnt = $('.btnRemove').length;
+				var count = $(this).index('.btnRemove') + 1;
+				$(this).parent().parent().remove();
+				// if(lnt > 1) {
+				// 	$('#divappend'+count).remove();
+				// }
+				console.log(count)
+			});
 		}
 
 		else if(this.type == 'view')
@@ -228,8 +238,6 @@ export class TaskTrackerPage implements OnInit {
 			});
 		}
 	}
-
-	
 
 	getData() {
 		return new Promise(resolve => {
@@ -265,15 +273,17 @@ export class TaskTrackerPage implements OnInit {
 		count++;
 
 		var borderstyle = 'style="border: 1px solid"';
-		var styletime = 'style="font-size: 10px;width: 100%;"';
-		var styleselect = 'style="width: 100%; font-size: 12px"';
-		var stylecomment = 'style="font-size:12px;width: 100%;"';
+		var styletime = 'style="font-size: 10px;width: 100%;color: black; background-color: white"';
+		var styleselect = 'style="width: 100%; font-size: 12px;color: black; background-color: white"';
+		var stylecomment = 'style="font-size:12px;width: 100%;color: black; background-color: white"';
 		var label = `style="font-family: 'Poetsen One';font-size: 12px;"`;
+
 
 		$('#divappend').append(
 			`
-			<ion-row>
+			<ion-row id="rowappend">
 				<ion-col class="datalist" size="4" `+borderstyle+`>
+					<ion-button button id="remove" class="btnRemove" color="danger" size="small"><ion-icon name="remove-circle-outline" style="color: #fff;"></ion-icon></ion-button> <br>
 					<input type="time" class="time req" attr="total`+count+`" `+styletime+`>
 				</ion-col>
 				<ion-col class="datalist" size="6" `+borderstyle+`>
