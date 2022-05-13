@@ -120,7 +120,8 @@ export class AppComponent {
 						// window.location.href = "https://play.app.goo.gl/?link=https://https://play.google.com/store/apps/details?id=com.agsi.AzureConnect";
 						if(plt == 'android')
 						{
-							var linkandroid = "https://play.google.com/store/apps/details?id="+this.appVersion.getPackageName();
+							// var linkandroid = "https://play.google.com/store/apps/details?id="+this.appVersion.getPackageName();
+							var linkandroid = "https://play.google.com/store/search?q=rbt%20compliance%20tracker&c=apps";
 							window.open(linkandroid, "_system");
 							navigator['app'].exitApp();
 						}
