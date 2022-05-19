@@ -231,7 +231,8 @@ export class TaskTrackerPage implements OnInit {
 				{
 					console.log(data)
 					$('#x').html(data.datax);
-					$('.finaltotal').html(data.total);
+					var total = data.total;
+					$('.finaltotal').html(total.toFixed(2));
 					$('.visor').html(data.visor);
 					$('.date').html(data.date);
 				}

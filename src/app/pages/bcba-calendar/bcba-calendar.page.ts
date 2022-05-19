@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PostProviderService } from '../../providers/post-provider.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ToastController, MenuController, ModalController, ActionSheetController  } from '@ionic/angular';
+import { ToastController, MenuController, ModalController, ActionSheetController, AlertController } from '@ionic/angular';
 import { BcbaCalendarModalPage } from '../bcba-calendar-modal/bcba-calendar-modal.page';
 import { BcbaCalendarModalDetailsPage} from '../bcba-calendar-modal-details/bcba-calendar-modal-details.page';
 declare var $: any;
@@ -29,7 +29,8 @@ export class BcbaCalendarPage implements OnInit {
 		private toastController: ToastController,
 		private menuCtrl: MenuController,
 		private modalController: ModalController,
-		private actionSheetController: ActionSheetController
+		private actionSheetController: ActionSheetController,
+		private alertController: AlertController,
 	) { }
 
 	ngOnInit() {
@@ -49,12 +50,36 @@ export class BcbaCalendarPage implements OnInit {
 				if(data['status'] == 'ok') {
 					this.companies = data['companies'];
 					console.log(data);
+					if(data['sign'] == null)
+					{
+						this.alertSign();
+					}
 				}
 				else {
 					this.openToaste('Error on fetching details.');
 				}
 			})
 		});
+	}
+
+	async alertSign()
+	{
+		const alert = await this.alertController.create({
+			header: 'Attention!',
+			backdropDismiss: false,
+			message: '<p style="text-align: justify;">Before you proceed you must upload your signature first!</p>',
+			cssClass: 'foo',
+			buttons: [
+				{
+					text: 'Go',
+					handler: () => {
+						this.router.navigateByUrl('/signature-upload');
+					}
+				}
+			]
+		});
+
+		await alert.present();
 	}
 
 	async openToasts(msg: any) {

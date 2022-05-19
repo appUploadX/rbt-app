@@ -134,7 +134,13 @@
 			</ion-row>
 
 		</ion-grid>
-		<ion-button button color="secondary" expand="block" type="submit">Save</ion-button>
+
+		<ion-item style="display: none;" id="ckboxsign">
+			<ion-checkbox color="dark" slot="start" (ionChange)="checkSign($event)"></ion-checkbox>
+			<ion-label>Use my existing signature</ion-label>
+		</ion-item>
+
+		<ion-button button color="secondary" expand="block" type="submit" id="btnSave" style="display: none">Save</ion-button>
 	</form>
 
 	<ng-template #thisElse>
@@ -222,7 +228,6 @@
 			<ion-row>
 				<ion-col class="headeruna1x" size="12">{{visor.note}}</ion-col>
 			</ion-row>
-
 		</ion-grid>
 	</ng-template>
 

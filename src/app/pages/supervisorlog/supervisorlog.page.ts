@@ -21,6 +21,8 @@ export class SupervisorlogPage implements OnInit {
 	logcode: any;
 	own: any;
 	visor: any;
+
+	signature: any;
 	constructor(
 		private router: Router,
 		private postPvd: PostProviderService,
@@ -94,6 +96,12 @@ export class SupervisorlogPage implements OnInit {
 						this.rbt = data['rbt'];
 						this.date = data['date'];
 						this.logcode = data['datax']['newcode'];
+						this.signature = data['sign'];
+
+						if(this.signature)
+						{
+							$('#ckboxsign').css('display', '');
+						}
 
 						var dbstime = data['datax']['stime'];
 						var dbetime = data['datax']['etime'];
@@ -366,6 +374,15 @@ export class SupervisorlogPage implements OnInit {
 				})
 			});
 			
+		}
+	}
+
+	checkSign(event: any) {
+		if(event.detail.checked) {
+			$('#btnSave').css('display', '');
+		} else if (!event.detail.checked) {
+			$('#btnSave').css('display', 'none');
+
 		}
 	}
 

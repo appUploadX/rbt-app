@@ -50,6 +50,7 @@ export class ProfilePage implements OnInit {
 	) { }
 
 	ngOnInit() {
+
 	}
 
 	ionViewDidEnter(): void {
@@ -347,4 +348,10 @@ export class ProfilePage implements OnInit {
 
 		await alert.present();
 	}
+
+	signature()
+	{
+		this.router.navigateByUrl('/signature-upload');
+	}
+	
 }

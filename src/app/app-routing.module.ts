@@ -101,6 +101,10 @@ const routes: Routes = [
     path: 'attach-supervisor',
     loadChildren: () => import('./pages/attach-supervisor/attach-supervisor.module').then( m => m.AttachSupervisorPageModule)
   },
+  {
+    path: 'signature-upload',
+    loadChildren: () => import('./pages/signature-upload/signature-upload.module').then( m => m.SignatureUploadPageModule)
+  },
 ];
 
 @NgModule({
