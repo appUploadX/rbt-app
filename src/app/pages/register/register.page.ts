@@ -45,7 +45,7 @@ export class RegisterPage implements OnInit {
 		}
 
 		$('body').on('click', '#register', function(){
-			$(this).attr('disabled', 'true');
+			$('#register').attr('disabled', 'true');
 			var count = 0;
 			var ths = [];
 			$('.requiredreg').each(function(){
@@ -102,6 +102,7 @@ export class RegisterPage implements OnInit {
 						}
 						else
 						{
+							$('#register').removeAttr('disabled');
 							jsopenToaste('<center> '+data['msg']+' <center>');
 						}
 					}
@@ -139,7 +140,7 @@ export class RegisterPage implements OnInit {
 
 	}
 
-  ionViewWillEnter() {
+  	ionViewWillEnter() {
 		this.menuCtrl.enable(false);
 	}
 

@@ -252,7 +252,7 @@ export class ProfilePage implements OnInit {
 
 						if(module == 'Supervisor')
 						{
-							this.createVisor();
+							this.chooseCreateSupervisor();
 						}
 
 						if(module == 'Worksched')
@@ -298,6 +298,31 @@ export class ProfilePage implements OnInit {
 					text: 'Attach',
 					handler: () => {
 						this.attachCompany();
+					}
+				}
+			]
+		});
+
+		await alert.present();
+	}
+
+	async chooseCreateSupervisor() {
+		const alert = await this.alertController.create({
+			header: 'Attention!',
+			backdropDismiss: false,
+			message: '<p style="text-align: justify;">Please choose whether to <b>create</b> or <b>attach</b> a supervisor </p>',
+			cssClass: 'foo',
+			buttons: [
+				{
+					text: 'Create',
+					handler: () => {
+						this.createVisor();
+					}
+				},
+				{
+					text: 'Attach',
+					handler: () => {
+						this.attachSuper();
 					}
 				}
 			]

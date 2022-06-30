@@ -71,9 +71,9 @@ export class LoginPage implements OnInit {
 					user: user,
 					pass: pass,
 					// rbt
-					// type: 'c75bd20cfe2ae235f95f4171455547d921a4b3e2',
+					type: 'c75bd20cfe2ae235f95f4171455547d921a4b3e2',
 					// super
-					type: '0f90840f722482888e9da6d7363e28741c24a12f',
+					// type: '0f90840f722482888e9da6d7363e28741c24a12f',
 				};
 
 				this.postPvd.postData(body, localStorage.getItem("HOMELINK")).subscribe(data => {
