@@ -259,20 +259,6 @@ export class ProfilePage implements OnInit {
 						{
 							this.router.navigate(['/work-schedule-create']);
 						}
-						// window.location.href = "https://play.app.goo.gl/?link=https://https://play.google.com/store/apps/details?id=com.agsi.AzureConnect";
-						// if(plt == 'android')
-						// {
-						// 	window.open("https://play.google.com/store/apps/details?id=com.agsi.RBTComplianceTracker", "_system");
-						// 	navigator['app'].exitApp();
-						// }
-						// else
-						// {
-						// 	window.open("https://apps.apple.com/ph/app/azure-connect/id1490206148", "_system");
-						// 	navigator['app'].exitApp();
-						// }
-						
-						// console.log('Confirm Okay');
-						// document.location.href = 'index.html';
 					}
 				}
 			]
@@ -377,6 +363,44 @@ export class ProfilePage implements OnInit {
 	signature()
 	{
 		this.router.navigateByUrl('/signature-upload');
+	}
+
+
+	async deleteacc() {
+		const alert = await this.alertController.create({
+			header: 'Attention!',
+			backdropDismiss: false,
+			message: '<p style="text-align: justify;"> Are you sure you want to delete your account? </p>',
+			cssClass: 'foo',
+			buttons: [
+				{
+					text: 'Confirm',
+					handler: () => {
+						return new Promise(resolve => {
+							let body = {
+								action: 'DeactivateAccount',
+								ucode: localStorage.getItem("UCODE"),
+							};
+				
+							this.postPvd.postData(body, localStorage.getItem("HOMELINK")).subscribe(data => {
+								if (data['status'] == "ok") {
+									this.openToasts('Account has been deleted!!!');
+									this.type = '';
+									localStorage.clear();
+									this.router.navigate(['/login']);
+								}
+							})
+						});
+					}
+				},
+				{
+					text: 'Cancel',
+					role: 'cancel',
+				}
+			]
+		});
+
+		await alert.present();
 	}
 	
 }

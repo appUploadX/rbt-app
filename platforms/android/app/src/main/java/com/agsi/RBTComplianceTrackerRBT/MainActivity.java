@@ -17,7 +17,7 @@
        under the License.
  */
 
-package com.agsi.RBTComplianceTrackerSupervisor;
+package com.agsi.RBTComplianceTrackerRBT;
 
 import android.os.Bundle;
 
