@@ -24,5 +24,5 @@
 		<img id="output" src="" height="150" width="250"/>
 	</ion-card>
 
-	<ion-button expand="block" color="secondary" id="saveSignature" size="small" (click)="saveSignature()">Save</ion-button>
+	<ion-button expand="block" color="secondary" id="saveSignature" size="small" (click)="saveSignature()" [disabled]="disabledUploadsign">Save</ion-button>
 </ion-content>

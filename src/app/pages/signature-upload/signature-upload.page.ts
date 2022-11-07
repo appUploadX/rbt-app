@@ -23,7 +23,7 @@ export class SignatureUploadPage implements OnInit {
 		private someComponent: AppComponent,
 		private plt: Platform, 
  	) { }
-
+	disabledUploadsign:boolean = false;
 	ngOnInit() {
 		this.getSign();
 	}
@@ -64,6 +64,7 @@ export class SignatureUploadPage implements OnInit {
 
 	saveSignature()
 	{
+		this.disabledUploadsign = true;
 		if (this.plt.is('ios')) {
 			var ptname = 'ios';
 		}
@@ -96,6 +97,7 @@ export class SignatureUploadPage implements OnInit {
 				success: function(data)
 				{
 					if (data['status'] == "ok") {
+						this.disabledUploadsign = false;
 						jsopenToasts('<center>Signature upload successful.<center>');
 						setTimeout(function(){
 							$('#signature').val('');
@@ -104,6 +106,8 @@ export class SignatureUploadPage implements OnInit {
 					}
 					else
 					{
+						this.disabledUploadsign = false;
+
 						$('#saveSignature').removeAttr('disabled')
 						jsopenToaste('<center>Error occured!<center>');
 					}
@@ -112,6 +116,8 @@ export class SignatureUploadPage implements OnInit {
 		}
 		else
 		{
+			this.disabledUploadsign = false;
+
 			jsopenToaste('<center>No file selected!<center>');
 		}
 

@@ -27,7 +27,7 @@ export class CreateCompanyPage implements OnInit {
 
 	ngOnInit() {
 	}
-
+	disabledCreateCompany:boolean = false;
 	ptname: string;
 	create(){
 		var count = 0;
@@ -108,6 +108,7 @@ export class CreateCompanyPage implements OnInit {
 	}
 
 	createCompany(){
+		this.disabledCreateCompany = true;
 		if (this.plt.is('ios')) {
 			var ptname = 'ios';
 		}
@@ -158,6 +159,7 @@ export class CreateCompanyPage implements OnInit {
 				{
 					if (data['status'] == "ok") {
 						jsopenToasts('<center>Company created successfully.<center>');
+						this.disabledCreateCompany = false;
 						setTimeout(function(){
 							$('ion-input').val('');
 							$('#createCompany').removeAttr('disabled')
@@ -172,6 +174,7 @@ export class CreateCompanyPage implements OnInit {
 			});
 		}
 		else{
+			this.disabledCreateCompany = false;
 			$('#createCompany').removeAttr('disabled')
 			jsopenToaste('<center>Some fields(*) are required.</center>');
 		}

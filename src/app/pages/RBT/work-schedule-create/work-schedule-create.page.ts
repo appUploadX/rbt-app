@@ -15,7 +15,7 @@ export class WorkScheduleCreatePage implements OnInit {
 	companies: any;
 	company: any;
 	supervisors: any;
-
+	disabledCreateWorkSched: boolean= false;
 	maxyr: any;
 	st: any;
 	et: any;
@@ -148,7 +148,7 @@ export class WorkScheduleCreatePage implements OnInit {
 	}
 	public disabledButton: boolean = false;
 	save(){
-		
+		this.disabledCreateWorkSched = true;
 		if (this.plt.is('ios')) {
 			var ptname = 'ios';
 		}
@@ -200,7 +200,7 @@ export class WorkScheduleCreatePage implements OnInit {
 			// 		}
 			// 	})
 			// });
-			$('#save').attr('disabled', 'true');
+			// $('#save').attr('disabled', 'true');
 			var link1 = localStorage.getItem("HOMELINK");
 			var link = link1.slice(0, -1)+'WithEmails/createWorkSchedRBT';
 			$.ajax({
@@ -223,9 +223,10 @@ export class WorkScheduleCreatePage implements OnInit {
 				{
 					if (data['status'] == "ok") {
 						jsopenToasts('Work schedule has been created.');
+						this.disabledCreateWorkSched = false;
 						setTimeout(function(){
 							this.show = false;
-							$('#save').removeAttr('disabled');
+							// $('#save').removeAttr('disabled');
 							// this.openToasts('Work schedule has been created!');
 							this.supervisors = [];
 							$('ion-datetime').val('');
@@ -237,6 +238,8 @@ export class WorkScheduleCreatePage implements OnInit {
 					}
 					else
 					{
+						this.disabledCreateWorkSched = false;
+
 						jsopenToaste('Error occured!');
 						$('#save').removeAttr('disabled');
 					}
@@ -245,6 +248,8 @@ export class WorkScheduleCreatePage implements OnInit {
 		}
 		else
 		{
+			this.disabledCreateWorkSched = false;
+
 			$('#save').css('display', '')
 			this.openToaste("<center>All fields are required!</center>")
 		}

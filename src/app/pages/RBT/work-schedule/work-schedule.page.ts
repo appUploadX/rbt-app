@@ -65,6 +65,7 @@ export class WorkSchedulePage implements OnInit {
 	async presentActionSheet(day, date) {
 		if(day)
 		{
+			console.log(this.ym+'ymmmmmmmmmmm');
 			const actionSheet = await this.actionSheetController.create({
 				header: 'Schedule: '+date,
 				cssClass: 'match-item-action-sheet',

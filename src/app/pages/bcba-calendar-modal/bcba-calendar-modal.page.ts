@@ -25,6 +25,7 @@ export class BcbaCalendarModalPage implements OnInit {
 	schedTime: any[];
 	ptname: string;
 	exist: any;
+	disabledSaveBCBA:boolean = false;
 	constructor(
 		private router: Router,
 		private postPvd: PostProviderService,
@@ -132,6 +133,7 @@ export class BcbaCalendarModalPage implements OnInit {
 	}
 
 	save(){
+		this.disabledSaveBCBA = true;
 		var time = [];
 		var counter = 0;
 		$('ion-checkbox').each(function(){
@@ -171,10 +173,12 @@ export class BcbaCalendarModalPage implements OnInit {
 	
 				this.postPvd.postData(body, localStorage.getItem('HOMELINK')).subscribe(data => {
 					if(data['status'] == 'ok') {
+						this.disabledSaveBCBA = false;
 						this.codesched = data['schedcode'];
 						this.openToasts('Time availabilty has been saved.');
 					}
 					else {
+						this.disabledSaveBCBA = false;
 						this.openToaste('Error occured!');
 					}
 				})
@@ -182,6 +186,7 @@ export class BcbaCalendarModalPage implements OnInit {
 		}
 		else
 		{
+			this.disabledSaveBCBA = false;
 			this.openToaste('There is no selected available time.');
 		}
 

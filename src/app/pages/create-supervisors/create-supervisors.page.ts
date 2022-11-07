@@ -31,9 +31,10 @@ export class CreateSupervisorsPage implements OnInit {
 
 	ngAfterViewInit(){
 	}
-
+	disabledCreatesuper:boolean = false;
 	ptname: string;
 	create(){
+		this.disabledCreatesuper = true;
 		var count = 0;
 		var ths = [];
 		var thsr = [];
@@ -72,15 +73,19 @@ export class CreateSupervisorsPage implements OnInit {
 				this.postPvd.postData(body, localStorage.getItem("HOMELINK")).subscribe(data => {
 					if (data['status'] == "ok") {
 						this.openToasts('<center>Supervisor created successfully.<center>');
+						this.disabledCreatesuper = false;
 						$('ion-input').val('');
+						
 					}
 					else {
+						this.disabledCreatesuper = false;
 						this.openToaste('<center>Company name is existing!<center>');
 					}
 				})
 			})
 		}
 		else{
+			this.disabledCreatesuper = false;
 			this.openToaste('<center>'+ths[0]+' field is required.</center>');
 			console.log(thsr[0].toString())
 			// thsr[0].addClass('has-focus');
@@ -114,6 +119,7 @@ export class CreateSupervisorsPage implements OnInit {
 
 
 	createSupervisor(){
+		this.disabledCreatesuper = true;
 		if (this.plt.is('ios')) {
 			var ptname = 'ios';
 		}
@@ -140,7 +146,6 @@ export class CreateSupervisorsPage implements OnInit {
 		console.log(count)
 		if(count == 0)
 		{
-			
 			var link1 = localStorage.getItem("HOMELINK");
 			var link = link1.slice(0, -1)+'WithEmails/CreateSupervisor';
 
@@ -163,6 +168,7 @@ export class CreateSupervisorsPage implements OnInit {
 					if (data['status'] == "ok") {
 						
 						jsopenToasts('<center>Supervisor created successfully.<center>');
+						this.disabledCreatesuper = false;
 						setTimeout(function(){
 							$('ion-input').val('');
 							$('#createSupervisor').removeAttr('disabled')
@@ -170,6 +176,7 @@ export class CreateSupervisorsPage implements OnInit {
 					}
 					else
 					{
+						this.disabledCreatesuper = false;
 						jsopenToaste('<center>Supervisor email already exist!<center>');
 						$('#createSupervisor').removeAttr('disabled')
 					}
@@ -177,6 +184,7 @@ export class CreateSupervisorsPage implements OnInit {
 			});
 		}
 		else{
+			this.disabledCreatesuper = false;
 			$('#createSupervisor').removeAttr('disabled')
 			jsopenToaste('<center>All fields(*) are required.</center>');
 			// this['thisInput'+thsr[0]].setFocus();

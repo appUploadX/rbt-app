@@ -140,7 +140,7 @@
 			<ion-label>Use my existing signature</ion-label>
 		</ion-item>
 
-		<ion-button button color="secondary" expand="block" type="submit" id="btnSave" style="display: none">Save</ion-button>
+		<ion-button button color="secondary" expand="block" type="submit" id="btnSave" style="display: none" [disabled]="disablesuplog">Save</ion-button>
 	</form>
 
 	<ng-template #thisElse>

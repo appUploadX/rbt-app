@@ -52,7 +52,7 @@
 			<ion-textarea id="note" placeholder="Note" class="req"></ion-textarea>
 		</ion-item>
 		
-		<ion-button expand="block" color="secondary" (click)="save()" size="small" style="display: none;" id="save">Save</ion-button>
+		<ion-button expand="block" color="secondary" (click)="save()" size="small" style="display: none;" id="save" [disabled]="disabledCreateWorkSched">Save</ion-button>
 		
 
 	</ion-list>

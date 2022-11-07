@@ -25,6 +25,8 @@ export class TaskTrackerPage implements OnInit {
 	stime: any;
 	etime: any;
 	newcode: any;
+
+	diabledTaskLog: boolean = false;
 	constructor(
 		private router: Router,
 		private postPvd: PostProviderService,
@@ -96,6 +98,7 @@ export class TaskTrackerPage implements OnInit {
 			}
 
 			$('body').on('click', '#save', function(){
+				$('#save').attr('disabled', true);
 				var req = 0;
 				var ths = [];
 				$('.req').each(function(){
@@ -175,6 +178,7 @@ export class TaskTrackerPage implements OnInit {
 						{
 							// console.log(data)
 							jsopenToasts('Task log create successful!');
+							$('#save').removeAttr('disabled');
 							setTimeout(function(){
 								console.log('back')
 								$('#back').click();
@@ -185,6 +189,7 @@ export class TaskTrackerPage implements OnInit {
 				}
 				else
 				{
+					$('#save').removeAttr('disabled');
 					ths[0].focus();
 					ths[0].css('border', '1px solid red');
 					setTimeout(function(){

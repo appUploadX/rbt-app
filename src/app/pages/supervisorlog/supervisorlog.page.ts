@@ -23,6 +23,7 @@ export class SupervisorlogPage implements OnInit {
 	visor: any;
 
 	signature: any;
+	disablesuplog: boolean = false;
 	constructor(
 		private router: Router,
 		private postPvd: PostProviderService,
@@ -242,6 +243,7 @@ export class SupervisorlogPage implements OnInit {
   		// 		ths[0].removeAttr('style');
   		// 	},5000);
 		// }
+		this.disablesuplog = true;
 		if (this.plt.is('ios')) {
 			var ptname = 'ios';
 		}
@@ -294,6 +296,7 @@ export class SupervisorlogPage implements OnInit {
 				{
 					if (data['status'] == "ok") {
 						jsopenToasts('The log has been created.');
+						this.disablesuplog = false;
 						setTimeout(function(){
 							
 							$('#back').click();
@@ -301,6 +304,7 @@ export class SupervisorlogPage implements OnInit {
 					}
 					else
 					{
+						this.disablesuplog = false;
 						jsopenToaste('Error occured!');
 					}
 				}
@@ -308,6 +312,7 @@ export class SupervisorlogPage implements OnInit {
 		}
 		else
 		{
+			this.disablesuplog = false;
 			jsopenToaste('This fields are required!');
   			ths[0].focus();
   			ths[0].css('border', '1px solid red');

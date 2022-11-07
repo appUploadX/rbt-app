@@ -23,7 +23,7 @@ export class AttachSupervisorPage implements OnInit {
 	) { }
 	supervisor:any;
 	supervisors:any;
-
+	disabledAttachsuper:boolean = false;
 	ngOnInit() {
 		this.getSupervisors();
 	}
@@ -73,6 +73,7 @@ export class AttachSupervisorPage implements OnInit {
 	create(){
 		if(this.supervisor)
 		{
+			this.disabledAttachsuper = true;
 			if (this.plt.is('ios')) {
 				var ptname = 'ios';
 			}
@@ -96,9 +97,11 @@ export class AttachSupervisorPage implements OnInit {
 					if (data['status'] == "ok") {
 						this.openToasts('<center>Supervisor successfully attached.<center>');
 						$('ion-select').val('');
+						this.disabledAttachsuper = false;
 						this.getSupervisors();
 					}
 					else {
+						this.disabledAttachsuper = false;
 						this.openToaste('<center>Error occured!<center>');
 					}
 				})
@@ -106,6 +109,7 @@ export class AttachSupervisorPage implements OnInit {
 		}
 		else
 		{
+			this.disabledAttachsuper = false;
 			this.openToaste('<center>Please select a supervisor!<center>');
 		}
 	}

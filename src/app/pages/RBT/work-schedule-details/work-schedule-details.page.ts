@@ -14,6 +14,7 @@ export class WorkScheduleDetailsPage implements OnInit {
 	@Input() yrmonth: any;
 	@Input() title: any;
 	@Input() type: any;
+	@Input() yr: any;
 	arrData: any;
 	thisDay: any;
 	constructor(
@@ -43,6 +44,7 @@ export class WorkScheduleDetailsPage implements OnInit {
 				action: 'rbtgetworkdetails',
 				ucode: localStorage.getItem("UCODE"),
 				date: this.yrmonth+'-'+this.day,
+				day: this.day,
 				type: this.type,
 			};
 			

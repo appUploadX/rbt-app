@@ -23,6 +23,7 @@ export class AttachCompanyPage implements OnInit {
 	) { }
 	companies:any;
 	company:any;
+	disabledButton:boolean = false;
 	ngOnInit() {
 		this.getCompanies();
 	}
@@ -72,6 +73,7 @@ export class AttachCompanyPage implements OnInit {
 	create(){
 		if(this.companies)
 		{
+			this.disabledButton = true;
 			if (this.plt.is('ios')) {
 				var ptname = 'ios';
 			}
@@ -94,10 +96,14 @@ export class AttachCompanyPage implements OnInit {
 				this.postPvd.postData(body, localStorage.getItem("HOMELINK")).subscribe(data => {
 					if (data['status'] == "ok") {
 						this.openToasts('<center>Company successfully attached.<center>');
+						this.disabledButton = false;
+
 						$('ion-select').val('');
 						this.getCompanies();
+			
 					}
 					else {
+						this.disabledButton = false;
 						this.openToaste('<center>Error occured!<center>');
 					}
 				})
@@ -105,6 +111,7 @@ export class AttachCompanyPage implements OnInit {
 		}
 		else
 		{
+			this.disabledButton = false;
 			this.openToaste('<center>Please indicate a company!<center>');
 		}
 	}
