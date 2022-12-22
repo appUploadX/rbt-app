@@ -5,7 +5,7 @@
 				<ion-list-header class="headTitle">RBT Compliance Tracker</ion-list-header>
 			</ion-list>
 
-			<div *ngIf="type == 'Supervisors';else rbt">
+			<div *ngIf="type == 'Supervisors' || type == 'Supervisor';else rbt">
 				<div *ngFor="let p of pages" id="sidenav">
 					<ion-menu-toggle *ngIf="p.url">
 						<ion-item [routerLink]="p.url" routerDirection="root" routerLinkActive="active">
