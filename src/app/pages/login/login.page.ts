@@ -23,7 +23,7 @@ export class LoginPage implements OnInit {
 	AppVer: String;
 	ngOnInit() {
 		
-		localStorage.setItem("HOMELINK", 'https://www.asi-ph.com/sandboxes/RBTComplianceTracker/RBTApp/');
+		localStorage.setItem("HOMELINK", 'https://www.abacompliancetracker.com/aba/RBTApp/');
 		
 	}
 
@@ -33,7 +33,7 @@ export class LoginPage implements OnInit {
 		this.menuCtrl.enable(false);
 		console.log(localStorage.getItem("UTYPE"));
 		
-		localStorage.setItem("HOMELINK", 'https://www.asi-ph.com/sandboxes/RBTComplianceTracker/RBTApp/');
+		localStorage.setItem("HOMELINK", 'https://www.abacompliancetracker.com/aba/RBTApp/');
 		var ucode = localStorage.getItem("UCODE");
 		console.log(ucode)
 		if(ucode != null || ucode != undefined)
@@ -72,9 +72,9 @@ export class LoginPage implements OnInit {
 					user: user,
 					pass: pass,
 					// rbt
-					// type: 'c75bd20cfe2ae235f95f4171455547d921a4b3e2',
+					type: 'c75bd20cfe2ae235f95f4171455547d921a4b3e2',
 					// super
-					type: '0f90840f722482888e9da6d7363e28741c24a12f',
+					// type: '0f90840f722482888e9da6d7363e28741c24a12f',
 				};
 
 				this.postPvd.postData(body, localStorage.getItem("HOMELINK")).subscribe(data => {

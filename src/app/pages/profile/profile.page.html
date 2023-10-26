@@ -24,8 +24,12 @@
 		</div>
 		<hr>
 		
+
+		
 		<div class="divbtns">
 			<ion-button size="small" color="primary" (click)="updatePass()">Update Password</ion-button>
+			<ion-button size="small" color="primary" (click)="deleteacc()">Delete my account</ion-button>
+
 			<div *ngIf="type == 'RBT'">
 				<ion-button size="small" color="primary" (click)="createCompany()" id="btncompany">Create Company</ion-button>
 				<ion-button size="small" color="primary" (click)="createVisor()">Create Supervisor</ion-button>
@@ -33,7 +37,6 @@
 			</div>
 			<ion-button size="small" color="primary" (click)="attachCompany()">Attach to a company</ion-button>
 			<ion-button size="small" color="primary" (click)="signature()">Upload a signature</ion-button>
-			<ion-button size="small" color="primary" (click)="deleteacc()">Delete my account</ion-button>
 		</div>
 	</ion-card>
 	

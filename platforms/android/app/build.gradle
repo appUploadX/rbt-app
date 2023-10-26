@@ -179,9 +179,11 @@ task cdvPrintProps {
 }
 
 android {
+    namespace cordovaConfig.PACKAGE_NAMESPACE
+
     defaultConfig {
         versionCode cdvVersionCode ?: new BigInteger("" + privateHelpers.extractIntFromManifest("versionCode"))
-        applicationId privateHelpers.extractStringFromManifest("package")
+        applicationId cordovaConfig.PACKAGE_NAMESPACE
 
         minSdkVersion cordovaConfig.MIN_SDK_VERSION
         if (cordovaConfig.MAX_SDK_VERSION != null) {
@@ -295,7 +297,6 @@ dependencies {
 
     // SUB-PROJECT DEPENDENCIES START
     implementation(project(path: ":CordovaLib"))
-    implementation "androidx.annotation:annotation:1.1.0"
     // SUB-PROJECT DEPENDENCIES END
 }
 

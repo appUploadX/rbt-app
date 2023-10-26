@@ -104,7 +104,11 @@ const routes: Routes = [
   {
     path: 'signature-upload',
     loadChildren: () => import('./pages/signature-upload/signature-upload.module').then( m => m.SignatureUploadPageModule)
+  },  {
+    path: 'notification',
+    loadChildren: () => import('./pages/notification/notification.module').then( m => m.NotificationPageModule)
   },
+
 ];
 
 @NgModule({

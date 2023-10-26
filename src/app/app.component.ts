@@ -14,20 +14,22 @@ export class AppComponent {
 
 	pages = [
 		{ title: 'Profile', url: '/profile', icon: 'person-outline', children: [], open: false},
+		{ title: 'Notification', url: '/notification', icon: 'bulb-outline', children: [], open: false},
 		{ title: 'BCBA Calendar', url: '/bcba-calendar', icon: 'calendar-outline', children: [], open: false},
 	];
 
 	pagesr = [
 		{ title: 'Profile', url: '/profile', icon: 'person-outline', children: [], open: false},
+		{ title: 'Notification', url: '/notification', icon: 'bulb-outline', children: [], open: false},
 		{ 
-			title: 'RBT Work Schedule', icon: 'list-outline',
+			title: 'ABA Work Schedule', icon: 'list-outline',
 			children: [
 				{ title: 'My Work Schedule', url: '/work-schedule', icon: 'calendar-outline', children: [], open: false},
 				{ title: 'Create Work Schedule', url: '/work-schedule-create', icon: 'calendar-outline', children: [], open: false}
 			]
 		},
 		// { title: 'Task tracker', url: '/task-tracker', icon: 'list-outline', children: [], open: false},
-		{ title: 'RBT Supervision Request', url: '/supervision-request', icon: 'calendar-outline', children: [], open: false},
+		{ title: 'ABA Supervision Request', url: '/supervision-request', icon: 'calendar-outline', children: [], open: false},
 	]
 
 	constructor(

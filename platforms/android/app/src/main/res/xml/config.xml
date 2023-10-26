@@ -1,33 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.agsi.RBTComplianceTrackerSupervisor" version="0.0.16" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <feature name="AppVersion">
-        <param name="android-package" value="uk.co.whiteoctober.cordova.AppVersion" />
-    </feature>
-    <feature name="Device">
-        <param name="android-package" value="org.apache.cordova.device.Device" />
-    </feature>
-    <feature name="NetworkStatus">
-        <param name="android-package" value="org.apache.cordova.networkinformation.NetworkManager" />
-    </feature>
-    <feature name="SplashScreen">
-        <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen" />
-        <param name="onload" value="true" />
-    </feature>
-    <feature name="StatusBar">
-        <param name="android-package" value="org.apache.cordova.statusbar.StatusBar" />
-        <param name="onload" value="true" />
-    </feature>
-    <feature name="CDVIonicKeyboard">
-        <param name="android-package" onload="true" value="io.ionic.keyboard.CDVIonicKeyboard" />
-    </feature>
-    <allow-navigation href="http://localhost/*" />
-    <allow-navigation href="https://localhost/*" />
-    <allow-navigation href="ionic://*" />
-    <feature name="IonicWebView">
-        <param name="android-package" value="com.ionicframework.cordova.webview.IonicWebView" />
-    </feature>
-    <name>RBT Compliance for Supervisor</name>
-    <description>Build to track RBT work compliance.</description>
+<widget id="com.agsi.RBTComplianceTrackerRBT" version="0.0.18" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>ABA Compliance Tracker for RBT</name>
+    <description>Build to track ABA work compliance.</description>
     <author email="" href="" />
     <content src="index.html" />
     <access origin="*" />
@@ -61,7 +35,6 @@
     <splash density="port-xxhdpi" src="resources/android/splash/drawable-port-xxhdpi-screen.png" />
     <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
     <preference name="loglevel" value="DEBUG" />
-    <preference name="webView" value="com.ionicframework.cordova.webview.IonicWebViewEngine" />
     <preference name="ScrollEnabled" value="false" />
     <preference name="BackupWebStorage" value="none" />
     <preference name="SplashMaintainAspectRatio" value="true" />

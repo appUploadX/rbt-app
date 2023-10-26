@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { PostProviderService } from '../../providers/post-provider.service';
+import { PostProviderService} from '../../providers/post-provider.service';
 import { AppComponent } from 'src/app/app.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastController, MenuController, AlertController } from '@ionic/angular';
+
 declare var $: any;
 
 @Component({
@@ -149,6 +150,7 @@ export class ProfilePage implements OnInit {
 					// this.openToasts('<center>Success!</center>');
 					this.supervisors = data['supervisors'];
 					this.suplng = this.supervisors.length;
+					// console.log(this.suplng)
 				}
 				else {
 					this.openToaste('<center>Error Occured!</center>');
